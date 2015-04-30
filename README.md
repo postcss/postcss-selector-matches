@@ -2,6 +2,8 @@
 
 > PostCSS plugin to transform `:matches()` W3C CSS pseudo class to more compatible CSS selectors
 
+http://dev.w3.org/csswg/selectors-4/#matches
+
 ## Installation
 
 ```console
