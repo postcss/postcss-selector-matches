@@ -1,3 +1,8 @@
+# 1.1.0 - 2015-06-13
+
+- Added: `lineBreak` option
+([#1](https://github.com/postcss/postcss-selector-matches/issues/1))
+
 # 1.0.2 - 2015-06-13
 
 - Fixed: support of pseudo classes that use parenthesis

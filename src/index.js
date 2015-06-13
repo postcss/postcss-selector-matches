@@ -26,11 +26,12 @@ function explodeSelector(pseudoClass, selector) {
 }
 
 function explodeSelectors(pseudoClass) {
-  return () => {
+  return (options = {}) => {
     return (css) => {
       css.eachRule(rule => {
         if (rule.selector && rule.selector.indexOf(pseudoClass) > -1) {
-          rule.selector = explodeSelector(pseudoClass, rule.selector).join(", ")
+          rule.selector = explodeSelector(pseudoClass, rule.selector)
+            .join("," + (options.lineBreak ? "\n" + rule.before : " "))
         }
       })
     }

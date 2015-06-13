@@ -40,6 +40,14 @@ p:first-child, p.special {
 **Note that if you are doing crazy selector like `p:matches(a) {}` you are likely to get crazy results (like `pa {}`)**.
 
 
+## Options
+
+### `lineBreak`
+
+(default: `false`)
+
+Allows you to introduce a line break between generated selectors.
+
 ---
 
 ## [Changelog](CHANGELOG.md)

@@ -3,8 +3,8 @@ import tape from "tape"
 import postcss from "postcss"
 import selectorMatches from "../src/index.js"
 
-function transform(css) {
-  return postcss(selectorMatches).process(css).css
+function transform(css, options = {}) {
+  return postcss(selectorMatches(options)).process(css).css
 }
 
 tape("postcss-selector-matches", t => {
@@ -60,6 +60,27 @@ tape("postcss-selector-matches", t => {
     transform(".foo:matches(:nth-child(-n+2), .bar) {}"),
     ".foo:nth-child(-n+2), .foo.bar {}",
     "should transform childs with parenthesis"
+  )
+
+  t.equal(
+    transform(`a:matches(
+  .b,
+  .c
+) {}`),
+    "a.b, a.c {}",
+    "should works with lots of whitespace"
+  )
+
+  t.equal(
+    transform(".foo:matches(:nth-child(-n+2), .bar) {}", {lineBreak: true}),
+    ".foo:nth-child(-n+2),\n.foo.bar {}",
+    "should add line break if asked too"
+  )
+
+  t.equal(
+    transform("  .foo:matches(:nth-child(-n+2), .bar) {}", {lineBreak: true}),
+    "  .foo:nth-child(-n+2),\n  .foo.bar {}",
+    "should add line break if asked too, and respect indentation"
   )
 
   t.end()
