@@ -56,5 +56,11 @@ tape("postcss-selector-matches", t => {
     "should transform shit if you ask for shit ?"
   )
 
+  t.equal(
+    transform(".foo:matches(:nth-child(-n+2), .bar) {}"),
+    ".foo:nth-child(-n+2), .foo.bar {}",
+    "should transform childs with parenthesis"
+  )
+
   t.end()
 })
