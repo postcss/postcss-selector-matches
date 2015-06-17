@@ -1,6 +1,6 @@
 {
   "name": "postcss-selector-matches",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "PostCSS plugin to transform :matches() W3C CSS pseudo class to more compatible CSS selectors",
   "keywords": [
     "postcss",
@@ -29,10 +29,10 @@
     "postcss": "^4.1.7"
   },
   "devDependencies": {
-    "babel": "^5.1.13",
-    "babel-eslint": "^3.0.1",
+    "babel": "^5.5.8",
+    "babel-eslint": "^3.1.15",
     "babel-tape-runner": "^1.1.0",
-    "eslint": "^0.20.0",
+    "eslint": "^0.23.0",
     "tape": "^4.0.0"
   },
   "scripts": {

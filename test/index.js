@@ -83,5 +83,14 @@ tape("postcss-selector-matches", t => {
     "should add line break if asked too, and respect indentation"
   )
 
+  t.equal(
+    transform(`
+button:matches(:hover, :active),
+.button:matches(:hover, :active) {}`),
+    `
+button:hover, button:active, .button:hover, .button:active {}`,
+    "should avoid duplicates"
+  )
+
   t.end()
 })

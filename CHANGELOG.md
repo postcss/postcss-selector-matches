@@ -1,3 +1,8 @@
+# 1.1.1 - 2015-06-17
+
+- Fixed: no more duplicates in generated selector
+([#3](https://github.com/postcss/postcss-selector-matches/issues/3))
+
 # 1.1.0 - 2015-06-13
 
 - Added: `lineBreak` option
