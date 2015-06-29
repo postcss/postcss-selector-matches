@@ -1,3 +1,9 @@
+# 1.1.2 - 2015-06-29
+
+- Fixed: support pseudo-element that might be collapsed to :matches()
+([#4](https://github.com/postcss/postcss-selector-matches/issues/4))
+- Fixed: doesn't drop selectors parts that do not have :matches() in them
+
 # 1.1.1 - 2015-06-17
 
 - Fixed: no more duplicates in generated selector

@@ -45,6 +45,12 @@ tape("postcss-selector-matches", t => {
   )
 
   t.equal(
+    transform("tag :matches(tag2, tag3) :matches(tag4, tag5), test {}"),
+    "tag tag2 tag4, tag tag3 tag4, tag tag2 tag5, tag tag3 tag5, test {}",
+    "should transform mutltiples :matches() with stuff after"
+  )
+
+  t.equal(
     transform("tag :matches(tag2 :matches(tag4, tag5), tag3) {}"),
     "tag tag2 tag4, tag tag2 tag5, tag tag3 {}",
     "should transform :matches() recursively"
@@ -90,6 +96,12 @@ button:matches(:hover, :active),
     `
 button:hover, button:active, .button:hover, .button:active {}`,
     "should avoid duplicates"
+  )
+
+  t.equal(
+    transform(`.foo:matches(:hover, :focus)::before {}`),
+    `.foo:hover::before, .foo:focus::before {}`,
+    "should work with something after :matches()"
   )
 
   t.end()

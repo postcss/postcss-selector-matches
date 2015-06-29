@@ -10,17 +10,19 @@ function explodeSelector(pseudoClass, selector, options) {
     selectorPart.forEach(part => {
       const position = part.indexOf(pseudoClass)
       const pre = part.slice(0, position)
-      const matches = balancedMatch("(", ")", part.slice(position))
+      const body = part.slice(position)
+      const matches = balancedMatch("(", ")", body)
 
-      const bodySelectors = matches.body ?
+      const bodySelectors = matches && matches.body ?
         list
           .comma(matches.body)
           .reduce((acc, s) => [
             ...acc,
             ...explodeSelector(pseudoClass, s, options),
           ], [])
-        : []
-      const postSelectors = matches.post
+        : [body]
+
+      const postSelectors = matches && matches.post
         ? explodeSelector(pseudoClass, matches.post, options)
         : []
 
@@ -29,10 +31,14 @@ function explodeSelector(pseudoClass, selector, options) {
         newParts = bodySelectors.map((s) => pre + s)
       }
       else {
+        const postWhitespaceMatches = matches.post.match(/^\s+/)
+        const postWhitespace = postWhitespaceMatches
+          ? postWhitespaceMatches[0]
+          : ""
         newParts = []
         postSelectors.forEach(postS => {
           bodySelectors.forEach(s => {
-            newParts.push(pre + s + " " + postS)
+            newParts.push(pre + s + postWhitespace + postS)
           })
         })
       }
