@@ -1,3 +1,10 @@
+# 1.2.0 - 2015-07-14
+
+- Fixed: indentation adjustment doesn't contain useless new lines
+- Fixed: transformation doesn't add some useless whitespace
+- Added: plugin now expose `replaceRuleSelector` to make it easy to reuse in
+some others plugins (like `postcss-custom-selectors`).
+
 # 1.1.2 - 2015-06-29
 
 - Fixed: support pseudo-element that might be collapsed to :matches()

@@ -1,13 +1,19 @@
 import tape from "tape"
 
 import postcss from "postcss"
-import selectorMatches from "../src/index.js"
+import plugin, {replaceRuleSelector} from "../src"
 
 function transform(css, options = {}) {
-  return postcss(selectorMatches(options)).process(css).css
+  return postcss(plugin(options)).process(css).css
 }
 
 tape("postcss-selector-matches", t => {
+  t.ok(
+    typeof replaceRuleSelector === "function" &&
+      typeof plugin.replaceRuleSelector === "function",
+    "expose 'replaceRuleSelector' function (for postcss-custom-selectors)"
+  )
+
   t.equal(
     transform("body {}"),
     "body {}",
@@ -90,6 +96,12 @@ tape("postcss-selector-matches", t => {
   )
 
   t.equal(
+    transform("\n  .foo:matches(:nth-child(-n+2), .bar) {}", {lineBreak: true}),
+    "\n  .foo:nth-child(-n+2),\n  .foo.bar {}",
+    "should add line break if asked too, and respect indentation even with \n"
+  )
+
+  t.equal(
     transform(`
 button:matches(:hover, :active),
 .button:matches(:hover, :active) {}`),
@@ -102,6 +114,20 @@ button:hover, button:active, .button:hover, .button:active {}`,
     transform(`.foo:matches(:hover, :focus)::before {}`),
     `.foo:hover::before, .foo:focus::before {}`,
     "should work with something after :matches()"
+  )
+
+  t.equal(
+    transform(`article :matches(h1, h2, h3) + p {}`),
+    `article h1 + p, article h2 + p, article h3 + p {}`,
+    "should works correctly with adjacent selectors"
+  )
+
+  t.equal(
+    transform(`article :matches(h1, h2, h3) + p {}`, {lineBreak: true}),
+    `article h1 + p,
+article h2 + p,
+article h3 + p {}`,
+    "should works correctly with adjacent selectors and line break"
   )
 
   t.end()

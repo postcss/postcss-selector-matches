@@ -3,9 +3,15 @@ import list from "postcss/lib/list"
 
 import balancedMatch from "balanced-match"
 
-function explodeSelector(pseudoClass, selector, options) {
+const pseudoClass = ":matches"
+
+function explodeSelector(selector, options) {
   if (selector && selector.indexOf(pseudoClass) > -1) {
     let newSelectors = []
+    const preWhitespaceMatches = selector.match(/^\s+/)
+    const preWhitespace = preWhitespaceMatches
+      ? preWhitespaceMatches[0]
+      : ""
     const selectorPart = list.comma(selector)
     selectorPart.forEach(part => {
       const position = part.indexOf(pseudoClass)
@@ -18,27 +24,23 @@ function explodeSelector(pseudoClass, selector, options) {
           .comma(matches.body)
           .reduce((acc, s) => [
             ...acc,
-            ...explodeSelector(pseudoClass, s, options),
+            ...explodeSelector(s, options),
           ], [])
         : [body]
 
       const postSelectors = matches && matches.post
-        ? explodeSelector(pseudoClass, matches.post, options)
+        ? explodeSelector(matches.post, options)
         : []
 
       let newParts
       if (postSelectors.length === 0) {
-        newParts = bodySelectors.map((s) => pre + s)
+        newParts = bodySelectors.map((s) => preWhitespace + pre + s)
       }
       else {
-        const postWhitespaceMatches = matches.post.match(/^\s+/)
-        const postWhitespace = postWhitespaceMatches
-          ? postWhitespaceMatches[0]
-          : ""
         newParts = []
         postSelectors.forEach(postS => {
           bodySelectors.forEach(s => {
-            newParts.push(pre + s + postWhitespace + postS)
+            newParts.push(pre + s + postS)
           })
         })
       }
@@ -53,20 +55,36 @@ function explodeSelector(pseudoClass, selector, options) {
   return [selector]
 }
 
-function explodeSelectors(pseudoClass) {
-  return (options = {}) => {
-    return (css) => {
-      css.eachRule(rule => {
-        if (rule.selector && rule.selector.indexOf(pseudoClass) > -1) {
-          rule.selector = explodeSelector(pseudoClass, rule.selector, options)
-            .join("," + (options.lineBreak ? "\n" + rule.before : " "))
-        }
-      })
-    }
-  }
+function replaceRuleSelector(rule, options) {
+  const indentation = rule.before
+    ? rule.before.split("\n").pop()
+    : ""
+  return (
+    explodeSelector(rule.selector, options)
+      .join("," + (options.lineBreak ? "\n" + indentation : " "))
+  )
+
 }
 
-export default postcss.plugin(
+function explodeSelectors(options = {}) {
+  return (css) => {
+    css.eachRule(rule => {
+      if (rule.selector && rule.selector.indexOf(pseudoClass) > -1) {
+        rule.selector = replaceRuleSelector(rule, options)
+      }
+    })
+  }
+
+}
+
+const plugin = postcss.plugin(
   "postcss-selector-matches",
-  explodeSelectors(":matches")
+  explodeSelectors
 )
+
+// expose for postcss-custom-selectors
+export {replaceRuleSelector}
+// old school fallback
+plugin.replaceRuleSelector = replaceRuleSelector
+
+export default plugin
