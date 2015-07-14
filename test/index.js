@@ -1,7 +1,8 @@
 import tape from "tape"
 
 import postcss from "postcss"
-import plugin, {replaceRuleSelector} from "../src"
+import plugin from "../src"
+import replaceRuleSelector from "../src/replaceRuleSelector"
 
 function transform(css, options = {}) {
   return postcss(plugin(options)).process(css).css
@@ -9,8 +10,7 @@ function transform(css, options = {}) {
 
 tape("postcss-selector-matches", t => {
   t.ok(
-    typeof replaceRuleSelector === "function" &&
-      typeof plugin.replaceRuleSelector === "function",
+    typeof replaceRuleSelector === "function",
     "expose 'replaceRuleSelector' function (for postcss-custom-selectors)"
   )
 

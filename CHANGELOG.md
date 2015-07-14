@@ -1,3 +1,8 @@
+# 1.2.1 - 2015-07-14
+
+- Fixed: plugin is correctly exposed for normal commonjs environments (!babel)
+([#5](https://github.com/postcss/postcss-selector-matches/issues/5))
+
 # 1.2.0 - 2015-07-14
 
 - Fixed: indentation adjustment doesn't contain useless new lines
