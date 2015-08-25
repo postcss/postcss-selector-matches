@@ -55,8 +55,8 @@ function explodeSelector(selector, options) {
 }
 
 export default function replaceRuleSelector(rule, options) {
-  const indentation = rule.before
-    ? rule.before.split("\n").pop()
+  const indentation = rule.raws && rule.raws.before
+    ? rule.raws.before.split("\n").pop()
     : ""
   return (
     explodeSelector(rule.selector, options)
