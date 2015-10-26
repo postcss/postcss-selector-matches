@@ -39,7 +39,7 @@ function explodeSelector(selector, options) {
         newParts = []
         postSelectors.forEach(postS => {
           bodySelectors.forEach(s => {
-            newParts.push(pre + s + postS)
+            newParts.push(preWhitespace + pre + s + postS)
           })
         })
       }

@@ -57,6 +57,12 @@ tape("postcss-selector-matches", t => {
   )
 
   t.equal(
+    transform(":matches(tag) :matches(tag2, tag3):hover {}"),
+    "tag tag2:hover, tag tag3:hover {}",
+    "should transform mutltiples :matches() with pseudo after"
+  )
+
+  t.equal(
     transform("tag :matches(tag2 :matches(tag4, tag5), tag3) {}"),
     "tag tag2 tag4, tag tag2 tag5, tag tag3 {}",
     "should transform :matches() recursively"
