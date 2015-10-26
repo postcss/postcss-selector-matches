@@ -1,3 +1,6 @@
+# 2.0.1 - 2015-10-26
+- Fixed: pseudo selectors with multiple matches in a selector
+
 # 2.0.0 - 2015-08-25
 
 - Removed: compatibility with postcss v4.x
