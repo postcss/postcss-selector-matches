@@ -138,7 +138,7 @@ article h3 + p {}`,
 
   t.equal(
     transform(`.foo:matches(p) {color: red;}`),
-    "p.foo {color: red;}",
+    `p.foo {color: red;}`,
     "should works correctly with a class and an element"
   )
 
