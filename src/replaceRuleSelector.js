@@ -12,7 +12,7 @@ function normalizeSelector(selector, preWhitespace, pre) {
   const selectorIsElement = isElementSelector(selector)
   const preIsElement = isElementSelector(pre)
 
-  if(selectorIsElement && !preIsElement) {
+  if (selectorIsElement && !preIsElement) {
     return `${preWhitespace}${selector}${pre}`
   }
 
@@ -48,7 +48,9 @@ function explodeSelector(selector, options) {
 
       let newParts
       if (postSelectors.length === 0) {
-        newParts = bodySelectors.map((s) => normalizeSelector(s, preWhitespace, pre))
+        newParts = bodySelectors.map((s) => {
+          normalizeSelector(s, preWhitespace, pre)
+        })
       }
       else {
         newParts = []
