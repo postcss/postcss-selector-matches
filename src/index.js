@@ -12,7 +12,7 @@ function explodeSelectors(options = {}) {
 
 }
 
-export default postcss.plugin(
+module.exports = postcss.plugin(
   "postcss-selector-matches",
   explodeSelectors
 )

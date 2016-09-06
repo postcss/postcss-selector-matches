@@ -1,3 +1,8 @@
+# 2.0.3 - 2016-09-06
+
+- Fixed: regression of 2.0.2 due to a transpilation upgrade
+  (@MoOx)
+
 # 2.0.2 - 2016-09-06
 
 - Fixed: .class:matches(element) now produce element.class
