@@ -15,6 +15,36 @@ tape("postcss-selector-matches", t => {
   )
 
   t.equal(
+    replaceRuleSelector({
+      raws: {
+        before: "\n\n",
+        between: " ",
+        semicolon: true,
+        after: "\n",
+      },
+      selector: ".fo--oo > :matches(h1, h2, h3)",
+    }, {
+      lineBreak: true,
+    }),
+    ".fo--oo > h1,\n.fo--oo > h2,\n.fo--oo > h3"
+  )
+
+  t.equal(
+    replaceRuleSelector({
+      raws: {
+        before: "\n\n",
+        between: " ",
+        semicolon: true,
+        after: "\n",
+      },
+      selector: ":matches(h4, h5, h6):hover .ba--z",
+    }, {
+      lineBreak: true,
+    }),
+    "h4:hover .ba--z,\nh5:hover .ba--z,\nh6:hover .ba--z"
+  )
+
+  t.equal(
     transform("body {}"),
     "body {}",
     "should do nothing if there is no :matches"
