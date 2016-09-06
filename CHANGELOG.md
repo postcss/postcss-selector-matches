@@ -1,3 +1,5 @@
+# 2.0.4 - 2016-09-06
+
 - Fixed: another regression of 2.0.2
   ([#10](https://github.com/postcss/postcss-selector-matches/pull/10) - @MoOx)
 
