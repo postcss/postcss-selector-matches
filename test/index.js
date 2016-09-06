@@ -136,5 +136,11 @@ article h3 + p {}`,
     "should works correctly with adjacent selectors and line break"
   )
 
+  t.equal(
+    transform(`.foo:matches(p) {color: red;}`),
+    `p.foo {color: red;}`,
+    "should works correctly with a class and an element"
+  )
+
   t.end()
 })

@@ -4,6 +4,21 @@ import balancedMatch from "balanced-match"
 
 const pseudoClass = ":matches"
 
+function isElementSelector(selector) {
+  return !selector.match(/(\:|\.)/g)
+}
+
+function normalizeSelector(selector, preWhitespace, pre) {
+  const selectorIsElement = isElementSelector(selector)
+  const preIsElement = isElementSelector(pre)
+
+  if (selectorIsElement && !preIsElement) {
+    return `${preWhitespace}${selector}${pre}`
+  }
+
+  return `${preWhitespace}${pre}${selector}`
+}
+
 function explodeSelector(selector, options) {
   if (selector && selector.indexOf(pseudoClass) > -1) {
     let newSelectors = []
@@ -33,7 +48,9 @@ function explodeSelector(selector, options) {
 
       let newParts
       if (postSelectors.length === 0) {
-        newParts = bodySelectors.map((s) => preWhitespace + pre + s)
+        newParts = bodySelectors.map((s) => {
+          return normalizeSelector(s, preWhitespace, pre)
+        })
       }
       else {
         newParts = []
