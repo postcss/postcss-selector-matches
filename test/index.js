@@ -137,9 +137,21 @@ article h3 + p {}`,
   )
 
   t.equal(
-    transform(`.foo:matches(p) {color: red;}`),
-    `p.foo {color: red;}`,
+    transform(".foo:matches(p) {color: red;}"),
+    "p.foo {color: red;}",
     "should works correctly with a class and an element"
+  )
+
+  t.equal(
+    transform(".fo--oo > :matches(h1, h2, h3) {}"),
+    ".fo--oo > h1, .fo--oo > h2, .fo--oo > h3 {}",
+    "regression https://github.com/postcss/postcss-selector-matches/issues/10"
+  )
+
+  t.equal(
+    transform(":matches(h4, h5, h6):hover .ba--z {}"),
+    "h4:hover .ba--z, h5:hover .ba--z, h6:hover .ba--z {}",
+    "regression https://github.com/postcss/postcss-selector-matches/issues/10"
   )
 
   t.end()

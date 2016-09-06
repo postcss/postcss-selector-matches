@@ -3,20 +3,20 @@ import list from "postcss/lib/list"
 import balancedMatch from "balanced-match"
 
 const pseudoClass = ":matches"
+const selectorElementRE = /^[a-zA-Z]/
 
 function isElementSelector(selector) {
-  return !selector.match(/(\:|\.)/g)
+  const matches = selectorElementRE.exec(selector)
+  // console.log({selector, matches})
+  return matches
 }
 
 function normalizeSelector(selector, preWhitespace, pre) {
-  const selectorIsElement = isElementSelector(selector)
-  const preIsElement = isElementSelector(pre)
-
-  if (selectorIsElement && !preIsElement) {
-    return `${preWhitespace}${selector}${pre}`
+  if (isElementSelector(selector) && !isElementSelector(pre)) {
+    return `${ preWhitespace}${ selector }${ pre }`
   }
 
-  return `${preWhitespace}${pre}${selector}`
+  return `${ preWhitespace }${ pre }${ selector }`
 }
 
 function explodeSelector(selector, options) {
@@ -48,9 +48,16 @@ function explodeSelector(selector, options) {
 
       let newParts
       if (postSelectors.length === 0) {
-        newParts = bodySelectors.map((s) => {
-          return normalizeSelector(s, preWhitespace, pre)
-        })
+        // the test below is a poor way to try we are facing a piece of a
+        // selector...
+        if (pre.indexOf(" ") > -1) {
+          newParts = bodySelectors.map((s) => preWhitespace + pre + s)
+        }
+        else {
+          newParts = bodySelectors.map((s) => (
+            normalizeSelector(s, preWhitespace, pre)
+          ))
+        }
       }
       else {
         newParts = []
