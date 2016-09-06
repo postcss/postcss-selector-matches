@@ -1,4 +1,10 @@
+# 2.0.2 - 2016-09-06
+
+- Fixed: .class:matches(element) now produce element.class
+  ([#8](https://github.com/postcss/postcss-selector-matches/pull/8) - @yordis)
+
 # 2.0.1 - 2015-10-26
+
 - Fixed: pseudo selectors with multiple matches in a selector
 
 # 2.0.0 - 2015-08-25
