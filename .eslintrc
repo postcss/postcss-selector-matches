@@ -1,12 +1,12 @@
 ---
-# babel support more syntax stuff than eslint for now
-parser: babel-eslint
-
 root: true
 extends: eslint:recommended
 
 ecmaFeatures:
   modules: true
+
+parserOptions:
+  sourceType: module
 
 env:
   es6: true
