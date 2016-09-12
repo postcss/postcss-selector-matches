@@ -50,7 +50,7 @@ function explodeSelector(selector, options) {
       if (postSelectors.length === 0) {
         // the test below is a poor way to try we are facing a piece of a
         // selector...
-        if (pre.indexOf(" ") > -1) {
+        if (position === -1 || pre.indexOf(" ") > -1) {
           newParts = bodySelectors.map((s) => preWhitespace + pre + s)
         }
         else {
