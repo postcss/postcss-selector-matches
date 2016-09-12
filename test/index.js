@@ -154,5 +154,11 @@ article h3 + p {}`,
     "regression https://github.com/postcss/postcss-selector-matches/issues/10"
   )
 
+  t.equal(
+    transform(":matches(a, b).foo, .bar {}"),
+    "a.foo, b.foo .bar {}",
+    "regression https://github.com/postcss/postcss-selector-matches/issues/10"
+  )
+
   t.end()
 })
