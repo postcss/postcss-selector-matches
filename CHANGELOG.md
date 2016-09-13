@@ -1,3 +1,9 @@
+# 2.0.5 - 2016-09-13
+
+- Fixed: another regression of 2.0.2
+  (don't mangle selector parts that don't contain `:matches`)
+  ([#13](https://github.com/postcss/postcss-selector-matches/pull/13) - @rgrove)
+
 # 2.0.4 - 2016-09-06
 
 - Fixed: another regression of 2.0.2
