@@ -117,19 +117,19 @@ button:hover, button:active, .button:hover, .button:active {}`,
   )
 
   t.equal(
-    transform(`.foo:matches(:hover, :focus)::before {}`),
-    `.foo:hover::before, .foo:focus::before {}`,
+    transform(".foo:matches(:hover, :focus)::before {}"),
+    ".foo:hover::before, .foo:focus::before {}",
     "should work with something after :matches()"
   )
 
   t.equal(
-    transform(`article :matches(h1, h2, h3) + p {}`),
-    `article h1 + p, article h2 + p, article h3 + p {}`,
+    transform("article :matches(h1, h2, h3) + p {}"),
+    "article h1 + p, article h2 + p, article h3 + p {}",
     "should works correctly with adjacent selectors"
   )
 
   t.equal(
-    transform(`article :matches(h1, h2, h3) + p {}`, {lineBreak: true}),
+    transform("article :matches(h1, h2, h3) + p {}", {lineBreak: true}),
     `article h1 + p,
 article h2 + p,
 article h3 + p {}`,
