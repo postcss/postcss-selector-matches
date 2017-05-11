@@ -1,3 +1,7 @@
+# 3.0.0 - 2017-05-11
+
+- Added: compatibility with postcss v6.x
+
 # 2.0.5 - 2016-09-13
 
 - Fixed: another regression of 2.0.2
