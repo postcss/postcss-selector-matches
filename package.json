@@ -1,6 +1,6 @@
 {
   "name": "postcss-selector-matches",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "PostCSS plugin to transform :matches() W3C CSS pseudo class to more compatible CSS selectors",
   "keywords": [
     "postcss",
