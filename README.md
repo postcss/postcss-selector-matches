@@ -1,4 +1,4 @@
-# postcss-selector-matches [![Build Status](https://travis-ci.org/postcss/postcss-selector-matches.svg?branch=master)](https://travis-ci.org/postcss/postcss-selector-matches)
+# postcss-selector-matches [![CSS Standard Status](https://jonathantneal.github.io/css-db/badge/selectors-matches.svg)](https://jonathantneal.github.io/css-db/#selectors-matches) [![Build Status](https://travis-ci.org/postcss/postcss-selector-matches.svg?branch=master)](https://travis-ci.org/postcss/postcss-selector-matches)
 
 > PostCSS plugin to transform `:matches()` W3C CSS pseudo class to more compatible CSS selectors
 
