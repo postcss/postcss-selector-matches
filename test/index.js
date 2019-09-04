@@ -160,5 +160,30 @@ article h3 + p {}`,
     "regression https://github.com/postcss/postcss-selector-matches/issues/10"
   )
 
+  t.equal(
+    transform(
+      "*:matches(a), " +
+        "c:matches(*), " +
+        "ns|*:matches(b), " +
+        "*|*:matches(d), " +
+        "*:matches(ns|e) {}"
+    ),
+    "a, c, ns|b, *|d, ns|e {}",
+    "universal selector is removed when mixed with a tag name selector"
+  )
+
+  t.equal(
+    transform("*.foo:matches(bar) {}"),
+    "bar.foo {}",
+    "universal selector is removed from compound selector when mixed with " +
+      "a tag name selector"
+  )
+
+  t.equal(
+    transform("*.foo:matches(*.bar, tag:baz), *:matches(*) {}"),
+    "*.foo.bar, tag:baz.foo, * {}",
+    "only one universal selector is kept"
+  )
+
   t.end()
 })
