@@ -4,6 +4,8 @@ import balancedMatch from "balanced-match"
 
 const pseudoClass = ":matches"
 const selectorElementRE = /^[a-zA-Z]/
+const selectorUniversalRE = /^\*(?!\|)/
+const selectorNamespacedUniversalRE = /\|\*$/
 
 function isElementSelector(selector) {
   const matches = selectorElementRE.exec(selector)
@@ -11,9 +13,47 @@ function isElementSelector(selector) {
   return matches
 }
 
+function isUniversalSelector(selector) {
+  const matches = selectorUniversalRE.exec(selector)
+  // console.log({selector, matches})
+  return matches
+}
+
+function isUniversalSelectorWithNS(selector) {
+  const matches = selectorNamespacedUniversalRE.exec(selector)
+  // console.log({selector, matches})
+  return matches
+}
+
 function normalizeSelector(selector, preWhitespace, pre) {
-  if (isElementSelector(selector) && !isElementSelector(pre)) {
-    return `${ preWhitespace}${ selector }${ pre }`
+  if (isUniversalSelector(selector) && isUniversalSelector(pre)) {
+    return `${ preWhitespace }${ pre }${ selector.substring(1) }`
+  }
+
+  if (isElementSelector(pre)) {
+    if (isUniversalSelector(selector)) {
+      return `${ preWhitespace }${ pre }${ selector.substring(1) }`
+    }
+    else if (isUniversalSelectorWithNS(selector)) {
+      return `${ preWhitespace }${
+        selector.substring(0, selector.length - 1)
+      }${ pre }`
+    }
+  }
+
+  if (isElementSelector(selector)) {
+    if (isUniversalSelector(pre)) {
+      return `${ preWhitespace }${ selector }${ pre.substring(1) }`
+    }
+    else if (isUniversalSelectorWithNS(pre)) {
+      return `${ preWhitespace }${
+        pre.substring(0, pre.length - 1)
+      }${ selector }`
+    }
+
+    else if (!isElementSelector(pre)) {
+      return `${ preWhitespace}${ selector }${ pre }`
+    }
   }
 
   return `${ preWhitespace }${ pre }${ selector }`
