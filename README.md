@@ -4,6 +4,8 @@
 
 http://dev.w3.org/csswg/selectors-4/#matches
 
+[!['Can I use' table](https://caniuse.bitsofco.de/image/css-matches-pseudo.png)](https://caniuse.com/#feat=css-matches-pseudo)
+
 ## Installation
 
 ```console
