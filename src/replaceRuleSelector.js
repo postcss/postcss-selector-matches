@@ -1,4 +1,4 @@
-import list from "postcss/lib/list"
+import {list} from "postcss"
 
 import balancedMatch from "balanced-match"
 

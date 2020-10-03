@@ -1,15 +1,15 @@
-import postcss from "postcss"
 import replaceRuleSelector from "./replaceRuleSelector"
 
-function explodeSelectors(options = {}) {
-  return (css) => {
-    css.walkRules(rule => {
+function postcssSelectorMatches(options = {}) {
+  return {
+    postcssPlugin: "postcss-selector-matches",
+    Rule(rule) {
       if (rule.selector && rule.selector.indexOf(":matches") > -1) {
         rule.selector = replaceRuleSelector(rule, options)
       }
-    })
+    },
   }
-
 }
+postcssSelectorMatches.postcss = true
 
-export default postcss.plugin("postcss-selector-matches", explodeSelectors)
+export default postcssSelectorMatches

@@ -1,3 +1,9 @@
+# 5.0.0 - 2020-xx-xx
+
+- Breaking: require postcss v8 or above.
+- Breaking: dropped support for Node v6/8.
+- Breaking: when requiring via commonjs, use `require("postcss-selector-matches").default`.
+
 # 4.0.0 - 2018-09-17
 
 - Added: compatibility with postcss v7.x

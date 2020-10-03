@@ -13,10 +13,10 @@ $ npm install postcss-selector-matches
 ## Usage
 
 ```js
-var postcss = require("postcss")
+const postcss = require("postcss")
 
-var output = postcss()
-  .use(require("postcss-selector-matches"))
+const output = postcss()
+  .use(require("postcss-selector-matches").default)
   .process(require("fs").readFileSync("input.css", "utf8"))
   .css
 ```
